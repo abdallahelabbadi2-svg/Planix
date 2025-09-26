@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planix - منظم الجدول الزمني</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planix</h1>
+            <div class="header-controls">
+                <div class="language-switcher">
+                    <button id="lang-ar" class="active">العربية</button>
+                    <button id="lang-en">English</button>
+                </div>
+                <div class="theme-switcher">
+                    <button id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="goal-section">
+                <h2 data-i18n="goal-title">حدد هدفك الأسبوعي</h2>
+                <div class="goal-input">
+                    <select id="goal-select" data-i18n-placeholder="select-goal">
+                        <option value="" disabled selected>اختر هدفك</option>
+                        <option value="study">الدراسة</option>
+                        <option value="work">العمل</option>
+                        <option value="fitness">اللياقة</option>
+                        <option value="hobby">هواية</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                    <textarea id="goal-plan" placeholder="كيف ستصل إلى هدفك؟" data-i18n-placeholder="goal-plan-placeholder"></textarea>
+                </div>
+            </section>
+
+            <section class="schedule-section">
+                <h2 data-i18n="schedule-title">الجدول الزمني للأسبوع</h2>
+                <div class="schedule-container">
+                    <div class="days-container">
+                        <div class="day-column">
+                            <h3 data-i18n="saturday">السبت</h3>
+                            <div class="tasks-container" id="saturday-tasks"></div>
+                            <button class="add-task-btn" data-day="saturday">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="day-column">
+                            <h3 data-i18n="sunday">الأحد</h3>
+                            <div class="tasks-container" id="sunday-tasks"></div>
+                            <button class="add-task-btn" data-day="sunday">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="day-column">
+                            <h3 data-i18n="monday">الإثنين</h3>
+                            <div class="tasks-container" id="monday-tasks"></div>
+                            <button class="add-task-btn" data-day="monday">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="day-column">
+                            <h3 data-i18n="tuesday">الثلاثاء</h3>
+                            <div class="tasks-container" id="tuesday-tasks"></div>
+                            <button class="add-task-btn" data-day="tuesday">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="day-column">
+                            <h3 data-i18n="wednesday">الأربعاء</h3>
+                            <div class="tasks-container" id="wednesday-tasks"></div>
+                            <button class="add-task-btn" data-day="wednesday">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="day-column">
+                            <h3 data-i18n="thursday">الخميس</h3>
+                            <div class="tasks-container" id="thursday-tasks"></div>
+                            <button class="add-task-btn" data-day="thursday">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="day-column">
+                            <h3 data-i18n="friday">الجمعة</h3>
+                            <div class="tasks-container" id="friday-tasks"></div>
+                            <button class="add-task-btn" data-day="friday">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pomodoro-section">
+                <h2 data-i18n="pomodoro-title">مؤقت بومودورو</h2>
+                <div class="pomodoro-container">
+                    <div class="pomodoro-display">
+                        <div class="pomodoro-timer">
+                            <span id="minutes">25</span>:<span id="seconds">00</span>
+                        </div>
+                        <div class="pomodoro-controls">
+                            <button id="pomodoro-start" data-i18n="start">ابدأ</button>
+                            <button id="pomodoro-pause" data-i18n="pause">أوقف مؤقتاً</button>
+                            <button id="pomodoro-reset" data-i18n="reset">إعادة تعيين</button>
+                        </div>
+                    </div>
+                    <div class="pomodoro-task">
+                        <h3 data-i18n="current-task">المهمة الحالية</h3>
+                        <p id="current-task-name" data-i18n="no-task-selected">لا توجد مهمة محددة</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="progress-section">
+                <h2 data-i18n="progress-title">تقدمك الأسبوعي</h2>
+                <div class="progress-container">
+                    <canvas id="progress-chart"></canvas>
+                    <div class="progress-summary">
+                        <div class="summary-item">
+                            <span data-i18n="completed-tasks">المهام المكتملة</span>
+                            <span id="completed-count">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span data-i18n="total-tasks">إجمالي المهام</span>
+                            <span id="total-count">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span data-i18n="completion-rate">نسبة الإنجاز</span>
+                            <span id="completion-rate">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p data-i18n="footer-text">© 2023 Planix. جميع الحقوق محفوظة.</p>
+            <div class="company-logo">
+                <i class="fas fa-rocket"></i>
+                <span>صنع من طرف شركة Elabix</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- نافذة منبثقة لإضافة مهمة جديدة -->
+    <div class="modal" id="task-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 data-i18n="add-task">إضافة مهمة جديدة</h2>
+            <form id="task-form">
+                <div class="form-group">
+                    <label for="task-name" data-i18n="task-name">اسم المهمة</label>
+                    <input type="text" id="task-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-time" data-i18n="task-time">الوقت المتوقع (بالدقائق)</label>
+                    <input type="number" id="task-time" min="1" value="25" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-day" data-i18n="task-day">اليوم</label>
+                    <input type="text" id="task-day" readonly>
+                </div>
+                <button type="submit" data-i18n="save-task">حفظ المهمة</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script_new.js"></script>
+</body>
+</html>
